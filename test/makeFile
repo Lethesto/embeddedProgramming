@@ -1,0 +1,29 @@
+#this make file compiles the hello world c file
+
+# How to get the current working dir --> cwd :=$(shell pwd)
+
+
+
+CSTD=c99 #c standard
+CPU=cortex-m0plus #target CPU
+CC=arm-none-eabi-gcc #compuler
+
+# -g to tell complier and linker to generate and retain source debugging/symbol information
+# -std sets the c standard to use
+# -mcpu sets the target cpu to build for
+# -mthumb to generate code in Thumb States (ISA)
+CFLAGS = -g -std=$(CSTD) -mcpu=$(CPU) -mthumb
+
+
+#telling make what target to run when "make all"
+.PHONY: all
+	all: helloworld.out
+
+# $@ -> means the target
+# $^ -> means the prereqesite list
+helloworld.out: 
+	$(CC) $(CFLAGS) helloWorld.c -o $@
+
+#telling make what target to run when "make clean"
+.PHONY: clean	
+	clean: *.out

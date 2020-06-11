@@ -24,18 +24,24 @@
 include sources.mk
 
 # Platform Overrides
-PLATFORM = 
+PLATFORM = HOST
 
 # Architectures Specific Flags
-LINKER_FILE = 
+LINKER_FILE = ./../msp432p401r.lds
 CPU = 
 ARCH = 
 SPECS = 
 
 # Compiler Flags and Defines
-CC = 
+
+ifeq($(PLATFORM), HOST)
+	CC = gcc
+else
+	CC = arm-none-eabi-gcc
+
+CSTD = c99
 LD = 
 LDFLAGS = 
-CFLAGS = 
+CFLAGS = -g -std=$(CSTD) -mcpu=$(CPU) -mthumb
 CPPFLAGs = 
 
